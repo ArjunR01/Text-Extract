@@ -49,19 +49,23 @@ export default function FileUploader() {
     formData.append("file", file);
 
     try {
-      await axios.post("http://127.0.0.1:8000/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress: (progressEvent) => {
-          const progress = progressEvent.total
-            ? (
-                Math.round(progressEvent.loaded * 100) / progressEvent.total
-              ).toFixed(0)
-            : 0;
-          setUploadProgress(progress);
-        },
-      });
+      await axios.post(
+        "https://text-extract-z1do.onrender.com/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: (progressEvent) => {
+            const progress = progressEvent.total
+              ? (
+                  Math.round(progressEvent.loaded * 100) / progressEvent.total
+                ).toFixed(0)
+              : 0;
+            setUploadProgress(progress);
+          },
+        }
+      );
       setStatus("success");
       setUploadProgress(100);
     } catch {
@@ -77,11 +81,14 @@ export default function FileUploader() {
     }
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/read", {
-        filename: file.name,
-        start_page: parseInt(startPage),
-        end_page: parseInt(endPage),
-      });
+      const response = await axios.post(
+        "https://text-extract-z1do.onrender.com/read",
+        {
+          filename: file.name,
+          start_page: parseInt(startPage),
+          end_page: parseInt(endPage),
+        }
+      );
 
       if (response.data.text) {
         setExtractedText(response.data.text);
