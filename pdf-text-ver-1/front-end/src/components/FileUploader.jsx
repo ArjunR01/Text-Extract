@@ -36,6 +36,7 @@ export default function FileUploader() {
       setEndPage("");
       setStartPage("");
       setExtractedText("");
+      setError("");
     }
   }
 
@@ -92,6 +93,7 @@ export default function FileUploader() {
 
       if (response.data.text) {
         setExtractedText(response.data.text);
+        setError("");
       } else {
         setError("No text found or invalid page range");
         setExtractedText("");
@@ -129,8 +131,9 @@ export default function FileUploader() {
           </div>
         </div>
       )}
-      {error && <p className="text-danger">{error}</p>}
-      {status === "success" && <p>File Upload Successfull</p>}
+      {status === "success" && status !== "error" && (
+        <p className="text-success">File Upload Successfull</p>
+      )}
       {status === "error" && <p>File Upload Failed. Please try again..</p>}
       {file && status === "success" && (
         <PageInterval
@@ -140,6 +143,7 @@ export default function FileUploader() {
           setEndPage={setEndPage}
         />
       )}
+      {error && <p className="text-danger">{error}</p>}
       {status === "success" && <button onClick={handleFetch}>Fetch</button>}
       {status === "success" && extractedText && (
         <div
