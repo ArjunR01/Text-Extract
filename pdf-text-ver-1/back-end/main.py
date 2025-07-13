@@ -6,6 +6,11 @@ import fitz
 
 app = FastAPI()
 
+@app.get("/")
+def read_root():
+    return {"message": "FastAPI backend is up and running!"}
+
+
 app.add_middleware(
   CORSMiddleware,
   allow_origins = ['*'],
