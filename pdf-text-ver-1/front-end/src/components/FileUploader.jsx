@@ -94,6 +94,9 @@ export default function FileUploader() {
         setExtractedText(response.data.text);
       } else {
         setError("No text found or invalid page range");
+        setExtractedText("");
+        setEndPage("");
+        setStartPage("");
       }
     } catch (err) {
       setError("Failed to fetch text. Please try again later");
