@@ -134,7 +134,9 @@ export default function FileUploader() {
       {status === "success" && status !== "error" && (
         <p className="text-success">File Upload Successfull</p>
       )}
-      {status === "error" && <p>File Upload Failed. Please try again..</p>}
+      {status === "error" && (
+        <p className="text-danger">File Upload Failed. Please try again..</p>
+      )}
       {file && status === "success" && (
         <PageInterval
           startPage={startPage}
