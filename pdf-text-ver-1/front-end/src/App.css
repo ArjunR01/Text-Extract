@@ -1,0 +1,15 @@
+/* .file-input {
+  margin-top: 100px;
+  width: 500px;
+} */
+
+.card-file-upload {
+  margin-top: 100px;
+}
+
+.mid-content {
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 25px;
+}
