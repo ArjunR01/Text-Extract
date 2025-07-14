@@ -1,4 +1,4 @@
-from sentence_transformer import SentenceTransformer
+from sentence_transformers import SentenceTransformer
 from typing import List, Dict
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
