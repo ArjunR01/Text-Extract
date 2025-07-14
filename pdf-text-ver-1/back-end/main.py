@@ -47,7 +47,7 @@ async def upload_pdf(file: UploadFile = File(...)):
   # return {"message": "PDF uploaded successfully", "filename":file.filename}
   return{
     "message": "PDF uploaded, extracted and chunked successfully.",
-    "filename": file.filenam,
+    "filename": file.filename,
     "chunk_preview": chunks[:3],
     "total_chunks": len(chunks)
   }
