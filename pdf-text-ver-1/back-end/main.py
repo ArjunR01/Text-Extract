@@ -5,7 +5,7 @@ import shutil,os
 import fitz
 
 from utils import chunk_text
-# from embedding_utils import embed_chunks
+from embedding_utils import embed_chunks
 
 app = FastAPI()
 
@@ -48,14 +48,14 @@ async def upload_pdf(file: UploadFile = File(...)):
   
   chunks = chunk_text(text_by_page)
 
-  # embed_chunks(chunks, file.filename)
+  embed_chunks(chunks)
 
   # return {"message": "PDF uploaded successfully", "filename":file.filename}
   return{
     "message": "PDF uploaded, extracted and chunked successfully.",
     "filename": file.filename,
-    "chunk_preview": chunks[:3],
-    "total_chunks": len(chunks)
+    "chunk_preview": embed_chunks[:3],
+    "total_chunks": len(embed_chunks)
   }
 
 
