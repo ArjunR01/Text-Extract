@@ -7,6 +7,7 @@ import axios from "axios";
 // type UploadStatus = "idle" | "uploading" | "success" | "error";
 
 export default function FileUploader() {
+  const [fetching, setFetching] = useState(false);
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState("idle");
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -81,6 +82,8 @@ export default function FileUploader() {
       return;
     }
 
+    setFetching(true);
+
     try {
       const response = await axios.post(
         "https://text-extract-z1do.onrender.com/read",
@@ -103,6 +106,8 @@ export default function FileUploader() {
     } catch (err) {
       setError("Failed to fetch text. Please try again later");
     }
+
+    setFetching(false);
   }
 
   return (
@@ -146,7 +151,26 @@ export default function FileUploader() {
         />
       )}
       {error && <p className="text-danger">{error}</p>}
-      {status === "success" && <button onClick={handleFetch}>Fetch</button>}
+      {status === "success" && (
+        <button
+          className="btn btn-primary"
+          onClick={handleFetch}
+          disabled={fetching}
+        >
+          {fetching ? (
+            <>
+              <span
+                className="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Fetching...
+            </>
+          ) : (
+            "Fetch"
+          )}
+        </button>
+      )}
       {status === "success" && extractedText && (
         <div
           className="border rounded p-3 mt-3"
