@@ -1,3 +1,5 @@
+import PdfThumbnail from "./PdfThumbnail";
+
 export function BookCard({ file, handleCardDelete }) {
   if (!file) return null;
   const fileSize = (file.size / 1000000).toFixed(2);
@@ -14,7 +16,7 @@ export function BookCard({ file, handleCardDelete }) {
       ></button>
       <div className="row g-0">
         <div className="col-md-4">
-          <img src="..." className="img-fluid rounded-start" alt="bookImg" />
+          <PdfThumbnail file={file} />
         </div>
         <div className="col-md-8">
           <div className="card-body">

@@ -13,6 +13,8 @@
     "@files-ui/react": "^1.2.5",
     "axios": "^1.10.0",
     "bootstrap": "^5.3.7",
+    "pdfjs": "^2.5.4",
+    "pdfjs-dist": "^5.3.93",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-dropzone": "^14.3.8"
