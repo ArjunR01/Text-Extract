@@ -4,6 +4,8 @@ from pydantic import BaseModel
 import shutil,os
 import fitz
 
+from utils import chunk_text
+
 app = FastAPI()
 
 @app.get("/")
@@ -33,7 +35,22 @@ async def upload_pdf(file: UploadFile = File(...)):
   with open(file_location, "wb") as buffer:
     shutil.copyfileobj(file.file, buffer)
 
-  return {"message": "PDF uploaded successfully", "filename":file.filename}
+  
+  doc = fitz.open(file_location)
+  full_text = ""
+
+  for page in doc:
+    full_text += page.get_text()
+  
+  chunks = chunks_text(full_text)
+
+  # return {"message": "PDF uploaded successfully", "filename":file.filename}
+  return{
+    "message": "PDF uploaded, extracted and chunked successfully.",
+    "filename": file.filenam,
+    "chunk_preview": chunks[:3],
+    "total_chunks": len(chunks)
+  }
 
 
 class ReadRequest(BaseModel):
