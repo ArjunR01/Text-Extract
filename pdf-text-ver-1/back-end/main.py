@@ -42,7 +42,7 @@ async def upload_pdf(file: UploadFile = File(...)):
   for page in doc:
     full_text += page.get_text()
   
-  chunks = chunks_text(full_text)
+  chunks = chunk_text(full_text)
 
   # return {"message": "PDF uploaded successfully", "filename":file.filename}
   return{
