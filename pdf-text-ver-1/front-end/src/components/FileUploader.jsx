@@ -15,7 +15,7 @@ export default function FileUploader() {
   const fileInputRef = useRef(null);
   const [startPage, setStartPage] = useState("");
   const [endPage, setEndPage] = useState("");
-  const [extractedText, setExtractedText] = useState("");
+  const [extractedText, setExtractedText] = useState([]);
 
   function handlFileChange(e) {
     const file = e.target.files[0];
@@ -51,7 +51,7 @@ export default function FileUploader() {
     formData.append("file", file);
 
     try {
-      await axios.post(
+      const response = await axios.post(
         "https://text-extract-z1do.onrender.com/upload",
         formData,
         {
@@ -70,6 +70,7 @@ export default function FileUploader() {
       );
       setStatus("success");
       setUploadProgress(100);
+      setExtractedText(response.data.chunk_preview || []);
     } catch {
       setStatus("error");
       setUploadProgress(100);
@@ -142,19 +143,19 @@ export default function FileUploader() {
       {status === "error" && (
         <p className="text-danger">File Upload Failed. Please try again..</p>
       )}
-      {file && status === "success" && (
+      {/* {file && status === "success" && (
         <PageInterval
           startPage={startPage}
           setStartPage={setStartPage}
           endPage={endPage}
           setEndPage={setEndPage}
         />
-      )}
+      )} */}
       {error && <p className="text-danger">{error}</p>}
       {status === "success" && (
         <button
           className="btn btn-primary"
-          onClick={handleFetch}
+          onClick={handleFileUpload}
           disabled={fetching}
         >
           {fetching ? (
@@ -167,7 +168,7 @@ export default function FileUploader() {
               Fetching...
             </>
           ) : (
-            "Fetch"
+            "Upload"
           )}
         </button>
       )}
